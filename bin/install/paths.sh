@@ -26,6 +26,10 @@ fi
 
 missing=""
 
+if [ ! `which git2prov.sh &> /dev/null` ]; then
+   missing=$missing":"$HOME/bin
+fi
+
 if [ ! `which pvcs-situate-paths.sh &> /dev/null` ]; then
    missing=$missing":"$HOME/bin/install
 fi
