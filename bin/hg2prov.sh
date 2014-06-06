@@ -106,6 +106,7 @@ for rev in `hg log --template="{rev}\n"`; do
       echo "#    * $file"   
       echo "<$sd/revision/$rev/$file>;"
       echo "   a prv:Immutable, nif:String, prov:Entity;"
+      echo "   prv:serializedBy      <$web_page/raw-file/$node_12/$file>;"
       echo "   prov:specializationOf <$sd/$file>;"
       echo "   #prov:value __contents of the file__"
       echo "   #pvcs:hasHash [ nfo:hashAlgorithm, nfo:hashValue ];"
