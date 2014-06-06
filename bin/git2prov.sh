@@ -53,8 +53,6 @@ for file in `git --no-pager log --pretty=format: --name-only --diff-filter=A | s
    echo "#3>    rdfs:label \"$file\";"
    echo "#3>    prv:serializedBy <$web_raw$file> ."
    echo
-   # Ignore commit messages (%s) for the CSV:
-   #git --no-pager log --date=iso --name-status --pretty=format:"$file,%H,%P,%an,%ad,%cn,%cd," -- "$file" \
    # https://github.com/timrdf/pvcs/wiki/git2prov#git2provconverterjs
    #                                                                   commit hash
    #                                                                   | parent hash
@@ -67,8 +65,12 @@ for file in `git --no-pager log --pretty=format: --name-only --diff-filter=A | s
    #                                                                   | |   |   |   |---|
    #                                                                   | |   |---|   |   |   subject (i.e. commit msg)
    #                                                                   | |   |---|   |---|   |
-   git --no-pager log --date=iso --name-status --pretty=format:"$file,%H,%P,%an,%ad,%cn,%cd,%s," -- "$file" \
+   git --no-pager log --date=iso --name-status --pretty=format:"$file,%H,%P,%an,%ad,%cn,%cd,\"%s\"," -- "$file" \
     | sed '/^$/d;s/ *$//' \
     | awk 'ORS=NR%2?FS:RS' \
     | sed 's/, \(.\)[^,]*$/,\1/'
+   # NOTE: it appears as though newlines in comments do NOT appear with %s -- a Great Thing.
+   #
+   # Unfortunately, double quotes in %s are not escaped
+   # http://stackoverflow.com/questions/9301673/can-i-escape-chars-in-git-log-output
 done
