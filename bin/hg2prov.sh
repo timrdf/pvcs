@@ -39,6 +39,7 @@ echo '@prefix nif:    <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif
 echo 
 echo "#3> <> pml:wasGeneratedWithPlan <https://github.com/timrdf/pvcs/tree/master/bin/hg2prov.sh#$myHash> ."
 echo "#3> <https://github.com/timrdf/pvcs/tree/master/bin/hg2prov.sh#$myHash>"
+echo "#3>    a prov:Plan;"
 echo "#3>    prov:specializationOf <https://github.com/timrdf/pvcs/tree/master/bin/hg2prov.sh> ."
 echo 
 
