@@ -84,7 +84,7 @@ for rev in `hg log --template="{rev}\n"`; do
    echo "   a prov:Activity;"
    echo "   prov:wasAttributedTo <$AGENT>;"
    echo "   prov:endedAtTime \"$commit_date\"^^xsd:dateTime;"
-   echo "   rdfs:comment \"$description\";"
+   echo "   rdfs:comment \"\"\"$description\"\"\";"
    echo "   dcterms:description \"$diffstat\";"
    if [[ -z "$parents" ]]; then
       # If the changeset has only one "natural" parent 
