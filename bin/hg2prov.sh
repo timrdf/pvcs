@@ -27,10 +27,10 @@ sd="$cr_base_uri/source/$cr_source_id/dataset/$cr_dataset_id"
 sdv=$cr_base_uri/source/$cr_source_id/dataset/$cr_dataset_id/version/$cr_version_id
 
 echo '@prefix xsd:    <http://www.w3.org/2001/XMLSchema#>.'
-echo '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.'
-echo '@prefix prov: <http://www.w3.org/ns/prov#>.'
-echo '@prefix prv:  <http://purl.org/net/provenance/ns#>.'
-echo '@prefix pml:  <http://provenanceweb.org/ns/pml#>.'
+echo '@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.'
+echo '@prefix prov:   <http://www.w3.org/ns/prov#>.'
+echo '@prefix prv:    <http://purl.org/net/provenance/ns#>.'
+echo '@prefix pml:    <http://provenanceweb.org/ns/pml#>.'
 echo '@prefix schema: <http://schema.org/>.'
 echo '@prefix prv:    <http://purl.org/net/provenance/ns#>.'
 echo '@prefix nfo:    <http://www.semanticdesktop.org/ontologies/nfo/#>.'
