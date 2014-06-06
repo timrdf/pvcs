@@ -101,7 +101,7 @@ for rev in `hg log --template="{rev}\n"`; do
    echo "."
    echo "<$AGENT>"
    echo "   a prov:Agent;"
-   echo "   rdfs:label \"$author\";"
+   echo "   rdfs:label \"${author//\"/\\\"}\";"
    echo "."
 
    for file in `hg log -r$rev --template "{files}"`; do
