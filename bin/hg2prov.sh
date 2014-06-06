@@ -26,15 +26,16 @@ done
 sd="$cr_base_uri/source/$cr_source_id/dataset/$cr_dataset_id"
 sdv=$cr_base_uri/source/$cr_source_id/dataset/$cr_dataset_id/version/$cr_version_id
 
-echo '@prefix xsd:    <http://www.w3.org/2001/XMLSchema#>.'
-echo '@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.'
-echo '@prefix prov:   <http://www.w3.org/ns/prov#>.'
-echo '@prefix prv:    <http://purl.org/net/provenance/ns#>.'
-echo '@prefix pml:    <http://provenanceweb.org/ns/pml#>.'
-echo '@prefix schema: <http://schema.org/>.'
-echo '@prefix prv:    <http://purl.org/net/provenance/ns#>.'
-echo '@prefix nfo:    <http://www.semanticdesktop.org/ontologies/nfo/#>.'
-echo '@prefix nif:    <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>.'
+echo '@prefix dcterms: <http://purl.org/dc/terms/>.'
+echo '@prefix xsd:     <http://www.w3.org/2001/XMLSchema#>.'
+echo '@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#>.'
+echo '@prefix prov:    <http://www.w3.org/ns/prov#>.'
+echo '@prefix prv:     <http://purl.org/net/provenance/ns#>.'
+echo '@prefix pml:     <http://provenanceweb.org/ns/pml#>.'
+echo '@prefix schema:  <http://schema.org/>.'
+echo '@prefix prv:     <http://purl.org/net/provenance/ns#>.'
+echo '@prefix nfo:     <http://www.semanticdesktop.org/ontologies/nfo/#>.'
+echo '@prefix nif:     <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>.'
 
 echo 
 echo "#3> <> pml:wasGeneratedWithPlan <https://github.com/timrdf/pvcs/tree/master/bin/hg2prov.sh#$myHash> ."
@@ -105,15 +106,15 @@ for rev in `hg log --template="{rev}\n"`; do
 
    for file in `hg log -r$rev --template "{files}"`; do
       echo "#    * $file"   
-      echo "<$sd/revision/$rev/$file>;"
+      echo "<$sd/revision/$rev/$file>"
       echo "   a prv:Immutable, nif:String, prov:Entity;"
       echo "   #prov:value __contents of the file__"
       echo "   #pvcs:hasHash [ nfo:hashAlgorithm, nfo:hashValue ];"
-      echo "   prov:alternateOf      <$web_page/file/$node_12/$file>"
+      echo "   prov:alternateOf      <$web_page/file/$node_12/$file>;"
       echo "   prv:serializedBy      <$web_page/raw-file/$node_12/$file>;"
       echo "   prov:specializationOf <$sd/$file>;"
       echo "."
-      echo "<$sd/$file>;"
+      echo "<$sd/$file>"
       echo "   a nfo:FileDataObject, prov:Entity;"
       echo "   rdfs:label   \"$file\";"
       echo "   nfo:fileName \"$file\";"
