@@ -116,9 +116,9 @@ for rev in `hg log --template="{rev}\n"`; do
       echo "   a nfo:FileDataObject, prov:Entity;"
       echo "   rdfs:label   \"$file\";"
       echo "   nfo:fileName \"$file\";"
-      echo "   prov:specializationOf <$web_page/file/tip/$file>;"
-      echo "   prv:serializedBy      <$web_page/raw-file/tip/$file>;"
-      echo "   nfo:fileURL           <$web_page/raw-file/tip/$file>;"
+      echo "   prov:alternateOf <$web_page/file/tip/$file>;"
+      echo "   prv:serializedBy <$web_page/raw-file/tip/$file>;"
+      echo "   nfo:fileURL      <$web_page/raw-file/tip/$file>;"
       echo "."
    done
    for added in `hg log -r$rev --template "{file_adds}"`; do
