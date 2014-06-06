@@ -132,10 +132,4 @@ for rev in `hg log --template="{rev}\n"`; do
    for deleted in `hg log -r$rev --template "{file_dels}"`; do
       echo "#    D $deleted"   
    done
-   #echo "# $file"
-   #echo "#3> <$web_page$file>"
-   #echo "#3>    a prov:Entity;"
-   #echo "#3>    rdfs:label \"$file\";"
-   #echo "#3>    prv:serializedBy <$web_raw$file> ."
-   #echo
 done
