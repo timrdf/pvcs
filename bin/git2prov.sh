@@ -54,17 +54,18 @@ for file in `git --no-pager log --pretty=format: --name-only --diff-filter=A | s
    echo "#3>    prv:serializedBy <$web_raw$file> ."
    echo
    # https://github.com/timrdf/pvcs/wiki/git2prov#git2provconverterjs
-   #                                                                   commit hash
-   #                                                                   | parent hash
-   #                                                                   | |
-   #                                                                   | |   author name
-   #                                                                   | |   |   author date
-   #                                                                   | |   |---|
-   #                                                                   | |   |   |   committer name
-   #                                                                   | |   |---|   |   committer date
-   #                                                                   | |   |   |   |---|
-   #                                                                   | |   |---|   |   |   subject (i.e. commit msg)
-   #                                                                   | |   |---|   |---|   |
+   #                                                             file
+   #                                                             |     commit hash
+   #                                                             |     | parent hash
+   #                                                             |     | |
+   #                                                             |     | |   author name
+   #                                                             |     | |   |   author date
+   #                                                             |     | |   |---|
+   #                                                             |     | |   |   |   committer name
+   #                                                             |     | |   |---|   |   committer date
+   #                                                             |     | |   |   |   |---|
+   #                                                             |     | |   |---|   |   |   subject (i.e. commit msg)
+   #                                                             |     | |   |---|   |---|   |
    git --no-pager log --date=iso --name-status --pretty=format:"$file,%H,%P,%an,%ad,%cn,%cd,\"%s\"," -- "$file" \
     | sed '/^$/d;s/ *$//' \
     | awk 'ORS=NR%2?FS:RS' \
