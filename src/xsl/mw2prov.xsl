@@ -82,7 +82,7 @@
             <xsl:variable name="commit" select="concat($LT,$base,'/w/index.php?title=',wm:title(../wm:title),
                                                                  '&amp;diff=',wm:id,'&amp;oldid=',wm:parentid,$GT)"/>
             <xsl:value-of select="concat($commit,$NL)"/>
-            <xsl:value-of select="concat('   a prov:Entity; # a pvcs:Commit;',$NL)"/>
+            <xsl:value-of select="concat('   a prov:Activity; # a pvcs:Commit;',$NL)"/>
             <xsl:value-of select="concat('   prov:endedAtTime ',$DQ,wm:timestamp,$DQ,'^^xsd:dateTime;',$NL)"/>
             <xsl:value-of select="concat('   prov:used      ',$antecedent,';',$NL)"/>
             <xsl:value-of select="concat('   prov:generated ',$revision,';',$NL)"/>
