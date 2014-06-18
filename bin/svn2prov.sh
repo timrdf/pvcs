@@ -13,7 +13,8 @@ PVCS_HOME=$(cd ${0%/*} && echo ${PWD%/*})
 me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
 
 if [[ "$1" == '--help' || "$1" == "-h" ]]; then
-   echo "`basename $0` [--svn-root root-url]"
+   echo "`basename $0` [--base-uri] [--svn-root root-url]"
+   echo "    --base-uri base-uri - the URI namespace for any resources that we may name."
    echo "    --svn-root root-url - the URL of the SVN root. e.g. https://scm.opendap.org/svn"
    echo "                                                        https://github.com/timrdf/wikipedia"
    exit
@@ -26,12 +27,28 @@ else
    svn_arg=''
 fi
 
+if [[ "$1" == '--base-uri' ]]; then
+   base_uri_arg="cr-base-uri=$2"
+   shift 2
+elif [[ "$CSV2RDF4LOD_BASE_URI" =~ http* ]]; then
+   base_uri_arg="cr-base-uri=$CSV2RDF4LOD_BASE_URI"
+else
+   base_uri_arg='cr-base-uri=http://localhost/svn2prov'
+fi
+
+if [[ `which cr-version-id.sh` && -n "`cr-version-id.sh`" ]]; then
+   sdv_arg="cr-source-id=`cr-source-id.sh` cr-dataset-id=`cr-dataset-id.sh` cr-version-id=`cr-version-id.sh`"
+else
+   sdv_arg=""
+fi
+
 TEMP="_"`basename $0``date +%s`_$$.tmp
 svn log -v --xml > $TEMP
 
+#echo $base_uri_arg $sdv_arg $svn_arg >&2
 saxon.sh $PVCS_HOME/src/xsl/svn2prov.xsl xml ttl -v \
-   cr-base-uri=http://provenanceweb.org \
-   cr-source-id=github-com-provbench cr-dataset-id=meta cr-version-id=svn $svn_arg \
+   $base_uri_arg     \
+   $sdv_arg $svn_arg \
    -in $TEMP
 rm $TEMP
 exit
