@@ -14,16 +14,16 @@
 <xsl:output method="text"/>
 
 <xsl:param name="cr-base-uri"   select="'http://opendap.tw.rpi.edu'"/>
-<xsl:param name="cr-source-id"  select="'opendap-org'"/>
-<xsl:param name="cr-dataset-id" select="'opendap'"/>
-<xsl:param name="cr-version-id" select="'svn'"/>
+<xsl:param name="cr-source-id"  select="''"/> <!-- e.g. opendap-org -->
+<xsl:param name="cr-dataset-id" select="''"/> <!-- e.g. opendap -->
+<xsl:param name="cr-version-id" select="''"/> <!-- e.g. svn -->
 
 <xsl:param name="svn" select="''"/> <!-- e.g. https://scm.opendap.org/svn -->
 
-<xsl:variable name="s"   select="concat($cr-base-uri,'/source/',$cr-source-id,'/')"/>
-<xsl:variable name="sd"  select="concat($s, 'dataset/',$cr-dataset-id,'/')"/>
-<xsl:variable name="sdv" select="concat($sd,'version/',$cr-version-id,'/')"/>
-<xsl:variable name="sdv_" select="concat($sd,'version/',$cr-version-id)"/>
+<xsl:variable name="s"    select="concat($cr-base-uri, if(string-length($cr-source-id))  then concat('/source/', $cr-source-id)     else '')"/>
+<xsl:variable name="sd"   select="concat($s,           if(string-length($cr-dataset-id)) then concat('dataset/',$cr-dataset-id,'/') else '')"/>
+<xsl:variable name="sdv"  select="concat($sd,          if(string-length($cr-version-id)) then concat('version/',$cr-version-id,'/') else '/')"/>
+<xsl:variable name="sdv_" select="concat($sd,          if(string-length($cr-version-id)) then concat('version/',$cr-version-id)     else '')"/>
 
 
 <xsl:variable name="prefixes"><xsl:text><![CDATA[@prefix prov:   <http://www.w3.org/ns/prov#>.
