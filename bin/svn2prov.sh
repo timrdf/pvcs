@@ -12,12 +12,26 @@
 PVCS_HOME=$(cd ${0%/*} && echo ${PWD%/*})
 me=$(cd ${0%/*} && echo ${PWD})/`basename $0`
 
+if [[ "$1" == '--help' || "$1" == "-h" ]]; then
+   echo "`basename $0` [--svn-root root-url]"
+   echo "    --svn-root root-url - the URL of the SVN root. e.g. https://scm.opendap.org/svn"
+   echo "                                                        https://github.com/timrdf/wikipedia"
+   exit
+fi
+
+svn_root=`svn info | grep "^Repository Root:" | awk '{print $3}'`
+if [[ "$svn_root" =~ http* ]]; then
+   svn_arg="svn=$svn_root"
+else
+   svn_arg=''
+fi
+
 TEMP="_"`basename $0``date +%s`_$$.tmp
 svn log -v --xml > $TEMP
 
 saxon.sh $PVCS_HOME/src/xsl/svn2prov.xsl xml ttl -v \
    cr-base-uri=http://provenanceweb.org \
-   cr-source-id=github-com-provbench cr-dataset-id=meta cr-version-id=svn \
+   cr-source-id=github-com-provbench cr-dataset-id=meta cr-version-id=svn $svn_arg \
    -in $TEMP
 rm $TEMP
 exit
