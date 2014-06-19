@@ -88,7 +88,7 @@
             <xsl:value-of select="concat('   prov:generated ',$revision,';',$NL)"/>
             <xsl:variable name="user" select="if (wm:contributor/wm:username) then concat($LT,$base,'/wiki/User:',wm:title(wm:contributor/wm:username),$GT) else ''"/>
             <xsl:if test="$user">
-               <xsl:value-of select="concat('   prov:wasAttributedTo ',$user,';',$NL)"/>
+               <xsl:value-of select="concat('   prov:wasAssociatedWith ',$user,';',$NL)"/>
             </xsl:if>
             <xsl:if test="string-length(wm:comment)">
                <xsl:value-of select="concat('   rdfs:comment ',$DQ,$DQ,$DQ,replace(wm:comment,$DQ,concat('\\',$DQ)),$DQ,$DQ,$DQ,';',$NL)"/>
