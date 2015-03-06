@@ -21,9 +21,9 @@
 <xsl:param name="svn" select="''"/> <!-- e.g. https://scm.opendap.org/svn -->
 
 <xsl:variable name="s"    select="concat($cr-base-uri, if(string-length($cr-source-id))  then concat('/source/', $cr-source-id)     else '')"/>
-<xsl:variable name="sd"   select="concat($s,           if(string-length($cr-dataset-id)) then concat('dataset/',$cr-dataset-id,'/') else '')"/>
-<xsl:variable name="sdv"  select="concat($sd,          if(string-length($cr-version-id)) then concat('version/',$cr-version-id,'/') else '/')"/>
-<xsl:variable name="sdv_" select="concat($sd,          if(string-length($cr-version-id)) then concat('version/',$cr-version-id)     else '')"/>
+<xsl:variable name="sd"   select="concat($s,           if(string-length($cr-dataset-id)) then concat('/dataset/',$cr-dataset-id,'/') else '')"/>
+<xsl:variable name="sdv"  select="concat($sd,          if(string-length($cr-version-id)) then concat('version/', $cr-version-id,'/') else '/')"/>
+<xsl:variable name="sdv_" select="concat($sd,          if(string-length($cr-version-id)) then concat('version/', $cr-version-id)     else '')"/>
 
 
 <xsl:variable name="prefixes"><xsl:text><![CDATA[@prefix prov:   <http://www.w3.org/ns/prov#>.
@@ -76,7 +76,7 @@
                                 '   a prov:Activity;',$NL)"/>
 
    <xsl:if test="string-length(author/text())">
-      <xsl:value-of select="concat('   prov:wasAttributedTo &lt;',$s,'id/developer/',author,'&gt;;',$NL)"/>
+      <xsl:value-of select="concat('   prov:wasAttributedTo &lt;',$s,'/id/developer/',author,'&gt;;',$NL)"/>
    </xsl:if>
 
    <xsl:if test="string-length(date/text())">
@@ -125,6 +125,7 @@
                                    $revisionless,$NL,
                                    '   #a pvcs:Mutable;',$NL,
                                    '   a  nfo:FileDataObject, prov:Entity;',$NL,
+                                   $no-svn,'   prov:specializationOf &lt;java:',replace(replace(replace($path,'^/trunk/src/main/java/',''),'/','.'),'.java$',''),'&gt;;',$NL,
                                    $no-svn,'   nfo:fileName     ',replace($svn,'.',' '),$DQ,$path,$DQ,';',$NL,
                                    $no-svn,'   prv:serializedBy &lt;',$svn,$path,'&gt;;',$NL,
                                    $no-svn,'   nfo:fileURL      &lt;',$svn,$path,'&gt;;',$NL,
